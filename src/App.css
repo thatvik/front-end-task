@@ -36,3 +36,237 @@
     transform: rotate(360deg);
   }
 }
+
+/* Animation for images sliding from top to bottom */
+@keyframes slide-down {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Animation for images sliding from bottom to top */
+@keyframes slide-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+/* Animation for search bar floating effect */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-slide-down {
+  animation: slide-down 40s linear infinite;
+}
+
+.animate-slide-up {
+  animation: slide-up 40s linear infinite;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Carousel Image Styling */
+.animate-slide-down > div, .animate-slide-up > div {
+  padding: 0; /* Remove padding that was causing overlap */
+  margin: 25px 0; /* Increased margin for more white space between images */
+  display: flex; /* Ensure proper alignment */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.animate-slide-down img, .animate-slide-up img {
+  width: 247px;
+  height: 355px; /* Exact height from specifications */
+  object-fit: cover;
+  border-radius: 16px; /* Exact radius from specifications */
+  margin: 0 auto; /* Center the images */
+  display: block; /* Ensure proper block display */
+  max-height: 100%; /* Ensure image doesn't exceed container */
+}
+
+/* Gradient Strip */
+.gradient-strip {
+  background: linear-gradient(90deg, #FFD600, #FF6E7F, #9B51E0);
+  transform: rotate(-2deg);
+  height: 30px;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  margin: 60px 0;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* Navbar Styling */
+.nav-item {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1F2937;
+  margin: 0;
+  position: relative;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-item:hover {
+  color: #00B2FF;
+  transform: scale(1.1);
+}
+
+.nav-item:hover::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #00B2FF;
+  transition: width 0.3s ease;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 0.5rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+  min-width: 180px;
+  overflow: hidden;
+}
+
+.dropdown-menu-item {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.dropdown-menu-item:last-child {
+  border-bottom: none;
+}
+
+.group:hover .dropdown-menu {
+  display: block;
+}
+
+/* Six Pillars Section Styling */
+.section-title {
+  margin-bottom: 16px;
+}
+
+.highlight-orange {
+  color: #F97316;
+}
+
+.pillar-button {
+  padding: 8px 16px;
+  border-radius: 24px;
+  white-space: nowrap;
+  transition: all 0.3s ease, transform 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.pillar-button.active {
+  background-color: black;
+  color: white;
+}
+
+.pillar-button:hover {
+  transform: scale(1.1);
+}
+
+.pillar-button.inactive {
+  background-color: #F3F4F6;
+  color: #1F2937;
+}
+
+.pillar-card {
+  width: 300px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pillar-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+.pillar-card-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.vitals-chip {
+  background-color: #F3F4F6;
+  padding: 4px 8px;
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+.card-description {
+  font-size: 14px;
+  color: #6B7280;
+}
+
+/* Interactive Elements Hover Effects */
+button:hover, 
+input:hover,
+.dropdown-menu-item a:hover {
+  transform: scale(1.05);
+}
+
+button, 
+input,
+.dropdown-menu-item a {
+  transition: transform 0.2s ease;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .pillar-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .pillar-card {
+    width: 100%;
+  }
+}
