@@ -1,4 +1,6 @@
-![Website Preview]("C:\Users\tfort\frontend-task\public\images\preview.png")
+![Website Preview](./public/images/preview.png)
+
+🚀 [Live Demo](https://thatvik.github.io/front-end-task/)
 
 
 
