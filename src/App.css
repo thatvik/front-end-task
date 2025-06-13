@@ -1,9 +1,11 @@
+/* mobile-first */
 .App {
   text-align: center;
   min-height: 100vh;
   background-color: #F9FAFB;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  overflow-x: hidden; /* Prevent horizontal scrolling on mobile */
 }
 
 /* Animation for images sliding from top to bottom */
@@ -54,22 +56,31 @@
 }
 
 /* Hero Section Styling */
+/* mobile-first - Hero Section */
 .hero-section {
   position: relative;
   overflow: visible;
-  padding-bottom: 80px;
+  padding-bottom: 160px; /* Increased padding to ensure content is visible below gradient strip */
   margin-bottom: 30px;
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .hero-section {
+    padding-bottom: 140px; /* Increase padding for smaller screens */
+  }
 }
 
 .hero-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 32px 24px 40px;
+  padding: 16px 16px 40px; /* Reduced padding for mobile */
   display: flex;
   flex-direction: column;
   position: relative;
 }
 
+/* desktop */
 @media (min-width: 768px) {
   .hero-container {
     flex-direction: row;
@@ -77,28 +88,89 @@
   }
 }
 
+/* mobile-first - Carousel */
 .carousel-container {
   position: relative;
   overflow: hidden;
-  height: 450px;
+  height: 350px; /* Smaller height for mobile */
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 20px; /* Added bottom margin for spacing */
   border-radius: 20px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
+/* desktop */
 @media (min-width: 768px) {
   .carousel-container {
     width: 50%;
     height: 500px;
+    margin-bottom: 0;
   }
 }
 
-.carousel-columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  height: 100%;
+/* Mobile horizontal carousel (under 768px) */
+@media (max-width: 767px) {
+  .carousel-container {
+    overflow-x: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    margin-bottom: 40px; /* Add more margin below carousel */
+    z-index: 15; /* Ensure carousel is above gradient strip but below search form */
+  }
+  
+  .carousel-container::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in Chrome/Safari */
+  }
+  
+  .carousel-columns {
+    display: flex;
+    width: 200%; /* Make it twice as wide to fit all images */
+    animation: scroll-horizontal 30s linear infinite; /* Ensure animation is running */
+  }
+  
+  .carousel-column {
+    flex: 0 0 50%;
+    scroll-snap-align: start;
+  }
+  
+  @keyframes scroll-horizontal {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  /* Ensure carousel items display properly in horizontal mode */
+  .carousel-animation {
+    flex-direction: row;
+    width: 200%;
+    height: 100%;
+    animation: scroll-horizontal 30s linear infinite; /* Ensure animation is running */
+  }
+  
+  .carousel-item {
+    height: 100%; /* Full height in mobile view */
+    width: 25%; /* 4 items per column */
+  }
+  
+  /* Override vertical animations for mobile */
+  .carousel-down, .carousel-up {
+    animation: none; /* Disable vertical animations on mobile */
+  }
+}
+
+/* Desktop grid layout (768px and above) */
+@media (min-width: 768px) {
+  .carousel-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    height: 100%;
+  }
 }
 
 .carousel-column {
@@ -140,30 +212,41 @@
   object-fit: cover;
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 100%; /* Ensure responsive images */
 }
 
-/* Hero Content Styling */
+/* mobile-first - Hero Content Styling */
 .hero-content {
-  z-index: 10;
+  z-index: 15; /* Increased z-index to ensure visibility */
   margin-bottom: 32px;
-  text-align: left;
-  padding-top: 20px; /* Added padding to move content down slightly */
+  text-align: center;
+  padding: 0 16px;
+  width: 100%;
+  position: relative;
+  display: block;
+  margin-top: 20px;
 }
 
+/* desktop */
 @media (min-width: 768px) {
   .hero-content {
     width: 50%;
     padding-left: 32px;
     margin-bottom: 0;
     padding-top: 40px; /* More padding on larger screens */
+    text-align: left; /* Left align on desktop */
+    margin-top: 0; /* Reset top margin */
   }
 }
 
+/* mobile-first - Hero Typography */
 .hero-content h1 {
-  font-size: 36px;
+  font-size: 28px; /* Smaller font size for mobile */
   font-weight: 600;
   line-height: 1.3;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+  display: block; /* Ensure it's displayed */
+  color: #1F2937; /* Ensure text color is visible */
 }
 
 .gradient-text {
@@ -171,38 +254,68 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  display: inline; /* Ensure gradient text displays properly */
 }
 
 .hero-content p {
   font-size: 16px;
   color: #6B7280;
   line-height: 1.5;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
-/* Search Form Styling */
+/* desktop */
+@media (min-width: 768px) {
+  .hero-content h1 {
+    font-size: 36px;
+    margin-bottom: 16px;
+  }
+}
+
+/* mobile-first - Search Form Styling */
 .search-form {
   background-color: white;
   border-radius: 20px;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-  padding: 24px 24px 40px;
+  padding: 20px 16px 24px; /* Reduced padding for mobile */
   position: absolute;
   bottom: 20px; /* Adjusted to overlap with carousel */
   left: 0;
   right: 0;
   margin: 0 auto;
-  z-index: 20;
-  width: 90%;
+  z-index: 30; /* Increased z-index to ensure it's above other elements */
+  width: 92%; /* Slightly wider on mobile */
   max-width: 1000px;
   animation: float 4s ease-in-out infinite;
 }
 
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .search-form {
+    padding: 16px 12px 20px;
+    width: 94%;
+    border-radius: 16px;
+    bottom: 30px;
+  }
+}
+
+/* desktop */
+@media (min-width: 768px) {
+  .search-form {
+    padding: 24px 24px 40px;
+    width: 90%;
+  }
+}
+
+/* mobile-first - Search Inputs */
 .search-inputs {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  width: 100%;
 }
 
+/* desktop */
 @media (min-width: 768px) {
   .search-inputs {
     flex-direction: row;
@@ -210,6 +323,7 @@
   }
 }
 
+/* mobile-first - Input Groups */
 .input-group {
   height: 48px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
@@ -220,11 +334,23 @@
   border-radius: 16px;
   padding: 0 12px;
   width: 100%;
+  margin-bottom: 8px; /* Add spacing between inputs on mobile */
 }
 
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .input-group {
+    height: 44px;
+    border-radius: 12px;
+    margin-bottom: 6px;
+  }
+}
+
+/* desktop */
 @media (min-width: 768px) {
   .input-group {
     width: 33.333%;
+    margin-bottom: 0; /* Remove spacing on desktop */
   }
 }
 
@@ -245,6 +371,7 @@
   padding: 0 8px;
 }
 
+/* mobile-first - Search Button */
 .search-button {
   background-color: #00B2A9;
   height: 48px;
@@ -259,11 +386,29 @@
   justify-content: center;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   width: 100%;
+  margin-top: 4px; /* Add spacing above button on mobile */
 }
 
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .search-button {
+    height: 44px;
+    border-radius: 12px;
+    font-size: 14px;
+    padding: 0 16px;
+  }
+  
+  .button-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* desktop */
 @media (min-width: 768px) {
   .search-button {
     width: auto;
+    margin-top: 0; /* Remove spacing on desktop */
   }
 }
 
@@ -288,19 +433,35 @@
   position: absolute;
   left: 50%;
   right: 0;
-  bottom: -30px; /* Adjusted to better integrate with the search form */
-  z-index: 5;
+  bottom: -15px; /* Adjusted to better integrate with the content below */
+  z-index: 10; /* Ensure it's below the search form but above other content */
   transform: translateX(-50%) rotate(-2deg);
 }
 
-/* Header Styling */
+/* mobile-first - Header Styling */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 24px;
+  padding: 12px 16px; /* Reduced padding for mobile */
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  position: relative;
+  z-index: 30; /* Ensure header is above other elements */
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .header {
+    padding: 10px 12px;
+  }
+}
+
+/* desktop */
+@media (min-width: 768px) {
+  .header {
+    padding: 16px 24px;
+  }
 }
 
 .logo img {
@@ -317,10 +478,19 @@
     background: none;
     border: none;
     cursor: pointer;
+    padding: 8px;
+    margin-right: -8px;
   }
   
   .desktop-nav {
     display: none;
+  }
+  
+  /* Mobile menu styling */
+  .mobile-menu-button svg {
+    width: 24px;
+    height: 24px;
+    color: #1F2937;
   }
 }
 
@@ -425,6 +595,13 @@
   margin: 0 auto;
 }
 
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .pillars-section {
+    padding: 0 16px 40px;
+  }
+}
+
 .pillars-container {
   width: 100%;
 }
@@ -454,6 +631,26 @@
 .section-title-text {
   display: flex;
   align-items: center;
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .section-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .section-title-text {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+  
+  .highlight-orange {
+    margin-right: 0;
+    margin-bottom: 4px;
+  }
 }
 
 .section-title .pillar-nav-buttons {
@@ -736,6 +933,79 @@ input,
   transition: transform 0.2s ease;
 }
 
+/* Mobile Menu Styling */
+.mobile-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 20;
+  border-radius: 0 0 12px 12px;
+  overflow: hidden;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobile-menu-items {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.mobile-menu-item {
+  padding: 12px 16px;
+  color: #4B5563;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.mobile-menu-item:hover {
+  background-color: #F3F4F6;
+  color: #111827;
+}
+
+.mobile-menu-divider {
+  border-top: 1px solid #E5E7EB;
+  margin-top: 12px;
+  padding-top: 12px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.mobile-menu-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.mobile-menu-links {
+  display: flex;
+  gap: 16px;
+}
+
+.mobile-menu-link {
+  color: #00B2FF;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
 /* Additional Responsive Styles */
 @media (max-width: 768px) {
   .section-title {
@@ -744,5 +1014,20 @@ input,
   
   .section-title .title-row {
     justify-content: center;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 24px;
+  }
+  
+  .hero-content p {
+    font-size: 14px;
+  }
+  
+  .carousel-container {
+    height: 300px;
   }
 }

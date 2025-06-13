@@ -187,7 +187,7 @@ function App() {
             {/* Image Carousel - Left side */}
             <div className="carousel-container">
               <div className="carousel-columns">
-                {/* Column 1: Carousel images moving from top to bottom */}
+                {/* Column 1: Carousel images moving from top to bottom on desktop, horizontal on mobile */}
                 <div className="carousel-column">
                   <div className="carousel-animation carousel-down">
                     {carouselImages.map((image, index) => (
@@ -196,6 +196,7 @@ function App() {
                           src={image.src} 
                           alt={image.alt} 
                           className="carousel-image"
+                          loading="lazy"
                         />
                       </div>
                     ))}
@@ -206,13 +207,14 @@ function App() {
                           src={image.src} 
                           alt={image.alt} 
                           className="carousel-image"
+                          loading="lazy"
                         />
                       </div>
                     ))}
                   </div>
                 </div>
                 
-                {/* Column 2: Rectangle images moving from bottom to top */}
+                {/* Column 2: Rectangle images moving from bottom to top on desktop, horizontal on mobile */}
                 <div className="carousel-column">
                   <div className="carousel-animation carousel-up">
                     {rectangleImages.map((image, index) => (
@@ -221,6 +223,7 @@ function App() {
                           src={image.src} 
                           alt={image.alt} 
                           className="carousel-image"
+                          loading="lazy"
                         />
                       </div>
                     ))}
@@ -231,6 +234,7 @@ function App() {
                           src={image.src} 
                           alt={image.alt} 
                           className="carousel-image"
+                          loading="lazy"
                         />
                       </div>
                     ))}
