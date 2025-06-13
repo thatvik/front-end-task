@@ -1,25 +1,42 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('Nutrition');
   const [showDropdown, setShowDropdown] = useState(false);
+  
+  // Reference for the pillar cards container
+  const cardsContainerRef = React.useRef(null);
+  
+  // Function to scroll the pillar cards left
+  const scrollPillarsLeft = () => {
+    if (cardsContainerRef.current) {
+      cardsContainerRef.current.scrollBy({ left: -320, behavior: 'smooth' });
+    }
+  };
+  
+  // Function to scroll the pillar cards right
+  const scrollPillarsRight = () => {
+    if (cardsContainerRef.current) {
+      cardsContainerRef.current.scrollBy({ left: 320, behavior: 'smooth' });
+    }
+  };
 
   // Images for the carousel
   const carouselImages = [
-    { src: '/images/carousel-1.png', alt: 'People cooking healthy food' },
-    { src: '/images/carousel-2.png', alt: 'Person doing yoga' },
-    { src: '/images/carousel-3.png', alt: 'Person on beach' },
-    { src: '/images/carousel-4.png', alt: 'Doctor with patient' }
+    { src: `${process.env.PUBLIC_URL}/images/carousel-1.png`, alt: 'People cooking healthy food' },
+    { src: `${process.env.PUBLIC_URL}/images/carousel-2.png`, alt: 'Person doing yoga' },
+    { src: `${process.env.PUBLIC_URL}/images/carousel-3.png`, alt: 'Person on beach' },
+    { src: `${process.env.PUBLIC_URL}/images/carousel-4.png`, alt: 'Doctor with patient' }
   ];
 
   // Rectangle images for the second column
   const rectangleImages = [
-    { src: '/images/Rectangle 3468481 (1).png', alt: 'Lifestyle image 1' },
-    { src: '/images/Rectangle 3468482 (1).png', alt: 'Lifestyle image 2' },
-    { src: '/images/Rectangle 3468485 (1).png', alt: 'Lifestyle image 3' },
-    { src: '/images/Rectangle 3468487 (1).png', alt: 'Lifestyle image 4' }
+    { src: `${process.env.PUBLIC_URL}/images/Rectangle 3468481 (1).png`, alt: 'Lifestyle image 1' },
+    { src: `${process.env.PUBLIC_URL}/images/Rectangle 3468482 (1).png`, alt: 'Lifestyle image 2' },
+    { src: `${process.env.PUBLIC_URL}/images/Rectangle 3468485 (1).png`, alt: 'Lifestyle image 3' },
+    { src: `${process.env.PUBLIC_URL}/images/Rectangle 3468487 (1).png`, alt: 'Lifestyle image 4' }
   ];
 
   // Lifestyle pillars data
@@ -30,7 +47,7 @@ function App() {
       description: 'Evidence supports the use of a whole food, plant-predominant diet to prevent, treat and reverse chronic illness.',
       metric: '121/80',
       unit: 'mmHg',
-      image: '/images/Rectangle 144.png'
+      image: `${process.env.PUBLIC_URL}/images/Rectangle 144.png`
     },
     {
       id: 'Physical activity',
@@ -38,7 +55,7 @@ function App() {
       description: 'Regular physical activity is key to managing weight, improving mental health, and reducing risk of chronic disease.',
       metric: '32',
       unit: 'minutes',
-      image: '/images/Rectangle 152.png'
+      image: `${process.env.PUBLIC_URL}/images/Rectangle 152.png`
     },
     {
       id: 'Restorative sleep',
@@ -46,7 +63,7 @@ function App() {
       description: 'Consistent, quality sleep is essential for cognitive function and physical health.',
       metric: '8',
       unit: 'hours',
-      image: '/images/Rectangle 154.png'
+      image: `${process.env.PUBLIC_URL}/images/Rectangle 154.png`
     },
     {
       id: 'Stress management',
@@ -54,7 +71,7 @@ function App() {
       description: 'Managing stress effectively helps prevent chronic conditions and improves overall wellbeing.',
       metric: '15',
       unit: 'minutes',
-      image: '/images/Rectangle 156.png'
+      image: `${process.env.PUBLIC_URL}/images/Rectangle 156.png`
     },
     {
       id: 'Social connection',
@@ -62,7 +79,7 @@ function App() {
       description: 'Strong social connections contribute to better health outcomes and longevity.',
       metric: '3',
       unit: 'friends',
-      image: '/images/Rectangle 158.png'
+      image: `${process.env.PUBLIC_URL}/images/Rectangle 158.png`
     },
     {
       id: 'Substance abuse',
@@ -70,7 +87,7 @@ function App() {
       description: 'Avoiding harmful substances is crucial for maintaining long-term health and preventing disease.',
       metric: '0',
       unit: 'drinks',
-      image: '/images/Rectangle 160.png'
+      image: `${process.env.PUBLIC_URL}/images/Rectangle 160.png`
     }
   ];
 
@@ -83,7 +100,7 @@ function App() {
       <header className="header">
         <div className="logo">
           <a href="/">
-            <img src="/images/provital-logo-gradient.svg" alt="ProVital Logo" />
+            <img src={`${process.env.PUBLIC_URL}/images/provital-logo-gradient.svg`} alt="ProVital Logo" />
           </a>
         </div>
         
@@ -117,15 +134,15 @@ function App() {
                 <div className="dropdown-menu-item">
                   <p className="dropdown-label">Doctor</p>
                   <div className="dropdown-links">
-                    <a href="#" className="dropdown-link">Login</a>
-                    <a href="#" className="dropdown-link">Sign up</a>
+                    <a href="#!" className="dropdown-link">Login</a>
+                    <a href="#!" className="dropdown-link">Sign up</a>
                   </div>
                 </div>
                 <div className="dropdown-menu-item">
                   <p className="dropdown-label">Patients</p>
                   <div className="dropdown-links">
-                    <a href="#" className="dropdown-link">Login</a>
-                    <a href="#" className="dropdown-link">Sign up</a>
+                    <a href="#!" className="dropdown-link">Login</a>
+                    <a href="#!" className="dropdown-link">Sign up</a>
                   </div>
                 </div>
               </div>
@@ -146,15 +163,15 @@ function App() {
               <div className="border-t border-gray-200 pt-2">
                 <p className="text-sm font-medium py-1">Doctor</p>
                 <div className="flex space-x-2">
-                  <a href="#" className="text-blue-500 text-sm">Login</a>
-                  <a href="#" className="text-blue-500 text-sm">Sign up</a>
+                  <a href="#!" className="text-blue-500 text-sm">Login</a>
+                  <a href="#!" className="text-blue-500 text-sm">Sign up</a>
                 </div>
               </div>
               <div className="pt-1">
                 <p className="text-sm font-medium py-1">Patients</p>
                 <div className="flex space-x-2">
-                  <a href="#" className="text-blue-500 text-sm">Login</a>
-                  <a href="#" className="text-blue-500 text-sm">Sign up</a>
+                  <a href="#!" className="text-blue-500 text-sm">Login</a>
+                  <a href="#!" className="text-blue-500 text-sm">Sign up</a>
                 </div>
               </div>
             </div>
@@ -279,8 +296,18 @@ function App() {
             <div className="section-header">
               <h2>HOW IT WORKS</h2>
               <div className="section-title">
-                <h3 className="highlight-orange">Lifestyle as medicine:</h3>
-                <span>The six pillars</span>
+                <div className="section-title-text">
+                  <h3 className="highlight-orange">Lifestyle as medicine:</h3>
+                  <span className="six-pillars-text">The six pillars</span>
+                </div>
+                <div className="pillar-nav-buttons">
+                  <button className="pillar-nav-button pillar-nav-prev" onClick={scrollPillarsLeft} aria-label="Previous pillars">
+                    <img src={`${process.env.PUBLIC_URL}/images/arrow-left.svg`} alt="Previous" />
+                  </button>
+                  <button className="pillar-nav-button pillar-nav-next" onClick={scrollPillarsRight} aria-label="Next pillars">
+                    <img src={`${process.env.PUBLIC_URL}/images/arrow-right.svg`} alt="Next" />
+                  </button>
+                </div>
               </div>
             </div>
             
@@ -298,29 +325,39 @@ function App() {
             </div>
             
             {/* Pillar Content */}
-            <div className="pillar-cards-container">
-              {pillars.filter(pillar => pillar.id === activeTab).map(pillar => (
-                <div key={pillar.id} className="pillar-card">
-                  <div className="card-image-container">
-                    <img 
-                      src={pillar.image} 
-                      alt={pillar.title} 
-                      className="pillar-card-image"
-                    />
-                    <div className="vitals-chip">
-                      <svg className="chip-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-                      </svg>
-                      <span className="metric-value">{pillar.metric}</span>
-                      <span className="metric-unit">{pillar.unit}</span>
+            <div className="pillar-cards-section">
+              <div className="pillar-cards-container" ref={cardsContainerRef}>
+                {pillars.map(pillar => (
+                  <div 
+                    key={pillar.id} 
+                    className={`pillar-card ${activeTab === pillar.id ? 'active' : ''}`}
+                    onClick={() => setActiveTab(pillar.id)}
+                  >
+                    <div className="card-image-container">
+                      <img 
+                        src={pillar.image} 
+                        alt={pillar.title} 
+                        className="pillar-card-image"
+                      />
+                      <div className="vitals-chip">
+                        <svg className="chip-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                          <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                        </svg>
+                        <span className="metric-value">{pillar.metric}</span>
+                        <span className="metric-unit">{pillar.unit}</span>
+                      </div>
+                    </div>
+                    <div className="card-content">
+                      <h4 className="card-title">{pillar.title}</h4>
+                      <p className="card-description">{pillar.description}</p>
                     </div>
                   </div>
-                  <div className="card-content">
-                    <h4 className="card-title">{pillar.title}</h4>
-                    <p className="card-description">{pillar.description}</p>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
+              
+              <button className="pillar-nav-button pillar-nav-next" onClick={scrollPillarsRight} aria-label="Next pillars">
+                <img src={`${process.env.PUBLIC_URL}/images/arrow-right.svg`} alt="Next" />
+              </button>
             </div>
           </div>
         </section>
