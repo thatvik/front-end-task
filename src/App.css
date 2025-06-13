@@ -5,7 +5,9 @@
   background-color: #F9FAFB;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  overflow-x: hidden; /* Prevent horizontal scrolling on mobile */
+  overflow-x: hidden !important; /* Prevent horizontal scrolling on mobile */
+  width: 100%;
+  max-width: 100vw;
 }
 
 /* Animation for images sliding from top to bottom */
@@ -65,9 +67,9 @@
 }
 
 /* Small mobile devices */
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
   .hero-section {
-    padding-bottom: 140px; /* Increase padding for smaller screens */
+    padding-bottom: 140px !important; /* Increase padding for smaller screens */
   }
 }
 
@@ -109,15 +111,17 @@
 }
 
 /* Mobile horizontal carousel (under 768px) */
-@media (max-width: 767px) {
+@media screen and (max-width: 767px) {
   .carousel-container {
-    overflow-x: hidden;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    margin-bottom: 40px; /* Add more margin below carousel */
-    z-index: 15; /* Ensure carousel is above gradient strip but below search form */
+    overflow-x: hidden !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    margin-bottom: 40px !important; /* Add more margin below carousel */
+    z-index: 15 !important; /* Ensure carousel is above gradient strip but below search form */
+    width: 100% !important;
+    height: 350px !important;
   }
   
   .carousel-container::-webkit-scrollbar {
@@ -290,12 +294,15 @@
 }
 
 /* Small mobile devices */
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
   .search-form {
-    padding: 16px 12px 20px;
-    width: 94%;
-    border-radius: 16px;
-    bottom: 30px;
+    padding: 16px 12px 20px !important;
+    width: 94% !important;
+    border-radius: 16px !important;
+    bottom: 30px !important;
+    left: 3% !important;
+    right: 3% !important;
+    position: absolute !important;
   }
 }
 
@@ -472,9 +479,9 @@
   display: none;
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .mobile-menu-button {
-    display: block;
+    display: block !important;
     background: none;
     border: none;
     cursor: pointer;
@@ -483,7 +490,7 @@
   }
   
   .desktop-nav {
-    display: none;
+    display: none !important;
   }
   
   /* Mobile menu styling */
