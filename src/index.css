@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Base styles are now imported from SCSS */
+/* SCSS imports are handled by the build system */
 
 body {
   margin: 0;

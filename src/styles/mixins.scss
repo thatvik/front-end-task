@@ -1,0 +1,69 @@
+// Responsive Mixins
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == sm {
+    @media (min-width: $breakpoint-sm) { @content; }
+  } @else if $breakpoint == md {
+    @media (min-width: $breakpoint-md) { @content; }
+  } @else if $breakpoint == lg {
+    @media (min-width: $breakpoint-lg) { @content; }
+  } @else if $breakpoint == xl {
+    @media (min-width: $breakpoint-xl) { @content; }
+  } @else if $breakpoint == 2xl {
+    @media (min-width: $breakpoint-2xl) { @content; }
+  }
+}
+
+// Flexbox Mixins
+@mixin flex($direction: row, $justify: flex-start, $align: stretch, $wrap: nowrap) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+}
+
+// Transition Mixin
+@mixin transition($property: all, $duration: $duration-normal, $timing: ease) {
+  transition: $property $duration $timing;
+}
+
+// Box Shadow Mixin
+@mixin box-shadow($shadow: $shadow-md) {
+  box-shadow: $shadow;
+}
+
+// Gradient Text Mixin
+@mixin gradient-text($gradient) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// Animation Mixin
+@mixin animation($name, $duration, $timing: linear, $iteration: infinite) {
+  animation: $name $duration $timing $iteration;
+}
+
+// Hover Effect Mixin
+@mixin hover-scale($scale: 1.05) {
+  @include transition(transform, $duration-fast);
+  &:hover {
+    transform: scale($scale);
+  }
+}
+
+// Button Style Mixin
+@mixin button-style($bg-color, $text-color: $white, $radius: $radius-xl) {
+  background-color: $bg-color;
+  color: $text-color;
+  border-radius: $radius;
+  padding: $spacing-2 $spacing-4;
+  font-weight: $font-medium;
+  @include transition;
+  
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: $shadow-md;
+  }
+}

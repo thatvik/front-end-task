@@ -4,7 +4,7 @@ import './App.css';
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('Nutrition');
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   // Images for the carousel
   const carouselImages = [
@@ -80,54 +80,56 @@ function App() {
   return (
     <div className="App min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="py-4 px-4 md:px-8 flex justify-between items-center bg-white" style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.08)' }}>
-        <div className="flex items-center">
-          <a href="/" className="flex items-center">
-            <img src="/images/provital-logo-gradient.svg" alt="ProVital Logo" className="h-10 w-auto" />
+      <header className="header">
+        <div className="logo">
+          <a href="/">
+            <img src="/images/provital-logo-gradient.svg" alt="ProVital Logo" />
           </a>
         </div>
         
         {/* Mobile menu button */}
         <button 
-          className="md:hidden focus:outline-none" 
+          className="mobile-menu-button" 
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
         
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center justify-end space-x-6">
+        <nav className="desktop-nav">
           <a href="#" className="nav-item">List your practice</a>
           <a href="#" className="nav-item">For Employers</a>
           <a href="#" className="nav-item">Courses</a>
           <a href="#" className="nav-item">Books</a>
           <a href="#" className="nav-item">Speakers</a>
           <a href="#" className="nav-item">Doctors</a>
-          <div className="relative group">
-            <button className="nav-item flex items-center">
+          <div className="dropdown-container" onMouseEnter={() => setShowDropdown(true)} onMouseLeave={() => setShowDropdown(false)}>
+            <button className="nav-item dropdown-button">
               Login / Signup
-              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg className="dropdown-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            <div className="dropdown-menu">
-              <div className="dropdown-menu-item">
-                <p className="text-sm font-medium">Doctor</p>
-                <div className="flex space-x-2 mt-1">
-                  <a href="#" className="text-blue-500 text-sm">Login</a>
-                  <a href="#" className="text-blue-500 text-sm">Sign up</a>
+            {showDropdown && (
+              <div className="dropdown-menu">
+                <div className="dropdown-menu-item">
+                  <p className="dropdown-label">Doctor</p>
+                  <div className="dropdown-links">
+                    <a href="#" className="dropdown-link">Login</a>
+                    <a href="#" className="dropdown-link">Sign up</a>
+                  </div>
+                </div>
+                <div className="dropdown-menu-item">
+                  <p className="dropdown-label">Patients</p>
+                  <div className="dropdown-links">
+                    <a href="#" className="dropdown-link">Login</a>
+                    <a href="#" className="dropdown-link">Sign up</a>
+                  </div>
                 </div>
               </div>
-              <div className="dropdown-menu-item">
-                <p className="text-sm font-medium">Patients</p>
-                <div className="flex space-x-2 mt-1">
-                  <a href="#" className="text-blue-500 text-sm">Login</a>
-                  <a href="#" className="text-blue-500 text-sm">Sign up</a>
-                </div>
-              </div>
-            </div>
+            )}
           </div>
         </nav>
         
@@ -163,30 +165,30 @@ function App() {
       {/* Main Content */}
       <main>
         {/* Hero Section with Image Carousel */}
-        <section className="relative overflow-hidden">
-          <div className="container mx-auto px-4 py-8 md:py-16 flex flex-col md:flex-row relative">
-            {/* Image Carousel - Moved to left side */}
-            <div className="md:w-1/2 relative overflow-hidden" style={{ height: '400px' }}>
-              <div className="grid grid-cols-2 gap-3 h-full">
+        <section className="hero-section">
+          <div className="hero-container">
+            {/* Image Carousel - Left side */}
+            <div className="carousel-container">
+              <div className="carousel-columns">
                 {/* Column 1: Carousel images moving from top to bottom */}
-                <div className="relative overflow-hidden rounded-[20px]">
-                  <div className="absolute inset-0 flex flex-col animate-slide-down" style={{ height: '200%' }}>
+                <div className="carousel-column">
+                  <div className="carousel-animation carousel-down">
                     {carouselImages.map((image, index) => (
-                      <div key={`col1-${index}`} className="h-1/4 w-full flex-shrink-0 flex items-center justify-center">
+                      <div key={`col1-${index}`} className="carousel-item">
                         <img 
                           src={image.src} 
                           alt={image.alt} 
-                          className="w-full h-full object-cover rounded-[20px]"
+                          className="carousel-image"
                         />
                       </div>
                     ))}
                     {/* Duplicate carousel images to create seamless loop */}
                     {carouselImages.map((image, index) => (
-                      <div key={`col1-dup-${index}`} className="h-1/4 w-full flex-shrink-0 flex items-center justify-center">
+                      <div key={`col1-dup-${index}`} className="carousel-item">
                         <img 
                           src={image.src} 
                           alt={image.alt} 
-                          className="w-full h-full object-cover rounded-[20px]"
+                          className="carousel-image"
                         />
                       </div>
                     ))}
@@ -194,24 +196,24 @@ function App() {
                 </div>
                 
                 {/* Column 2: Rectangle images moving from bottom to top */}
-                <div className="relative overflow-hidden rounded-[20px]">
-                  <div className="absolute inset-0 flex flex-col animate-slide-up" style={{ height: '200%' }}>
+                <div className="carousel-column">
+                  <div className="carousel-animation carousel-up">
                     {rectangleImages.map((image, index) => (
-                      <div key={`col2-${index}`} className="h-1/4 w-full flex-shrink-0 flex items-center justify-center">
+                      <div key={`col2-${index}`} className="carousel-item">
                         <img 
                           src={image.src} 
                           alt={image.alt} 
-                          className="w-full h-full object-cover rounded-[20px]"
+                          className="carousel-image"
                         />
                       </div>
                     ))}
                     {/* Duplicate rectangle images to create seamless loop */}
                     {rectangleImages.map((image, index) => (
-                      <div key={`col2-dup-${index}`} className="h-1/4 w-full flex-shrink-0 flex items-center justify-center">
+                      <div key={`col2-dup-${index}`} className="carousel-item">
                         <img 
                           src={image.src} 
                           alt={image.alt} 
-                          className="w-full h-full object-cover rounded-[20px]"
+                          className="carousel-image"
                         />
                       </div>
                     ))}
@@ -220,69 +222,70 @@ function App() {
               </div>
             </div>
             
-            {/* Text Content - Moved to right side */}
-            <div className="md:w-1/2 z-10 mb-8 md:mb-0 md:pl-8">
-              <h1 className="text-4xl font-semibold mb-4" style={{ fontSize: '36px', fontWeight: 600, lineHeight: 1.3 }}>
+            {/* Text Content - Right side */}
+            <div className="hero-content">
+              <h1>
                 Book an appointment with <br />
-                <span style={{ background: 'linear-gradient(90deg, #00B2FF, #9B51E0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>lifestyle medicine</span> experts
+                <span className="gradient-text">lifestyle medicine</span> experts
               </h1>
-              <p className="mb-8" style={{ fontSize: '16px', color: '#6B7280', lineHeight: 1.5, marginBottom: '32px' }}>
+              <p>
                 Optimize your lifestyle and reverse chronic diseases.
               </p>
             </div>
 
             {/* Search Form - Overlapping the carousel */}
-            <div className="bg-white rounded-[20px] shadow-lg p-6 animate-float absolute bottom-0 left-0 right-0 mx-auto md:w-3/4 transform md:translate-y-1/4 z-20">
-              <div className="flex flex-wrap md:flex-nowrap gap-3">
-                <div className="flex items-center border border-[#E5E7EB] rounded-[16px] px-3 w-full md:w-1/3" style={{ height: '48px', boxShadow: '0 1px 4px rgba(0, 0, 0, 0.05)' }}>
-                  <svg className="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <div className="search-form">
+              <div className="search-inputs">
+                <div className="input-group">
+                  <svg className="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
-                  <input type="text" placeholder="Condition, procedure, speciality..." className="ml-2 w-full outline-none text-sm h-full" />
+                  <input type="text" placeholder="Condition, procedure, speciality..." />
                 </div>
                 
-                <div className="flex items-center border border-[#E5E7EB] rounded-[16px] px-3 w-full md:w-1/3" style={{ height: '48px', boxShadow: '0 1px 4px rgba(0, 0, 0, 0.05)' }}>
-                  <svg className="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <div className="input-group">
+                  <svg className="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  <input type="text" placeholder="City, state, or zipcode" className="ml-2 w-full outline-none text-sm h-full" />
+                  <input type="text" placeholder="City, state, or zipcode" />
                 </div>
                 
-                <div className="flex items-center border border-[#E5E7EB] rounded-[16px] px-3 w-full md:w-1/3" style={{ height: '48px', boxShadow: '0 1px 4px rgba(0, 0, 0, 0.05)' }}>
-                  <svg className="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <div className="input-group">
+                  <svg className="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                   </svg>
-                  <input type="text" placeholder="Insurance carrier" className="ml-2 w-full outline-none text-sm h-full" />
+                  <input type="text" placeholder="Insurance carrier" />
                 </div>
                 
-                <button className="w-full md:w-auto text-white rounded-[16px] flex items-center justify-center font-medium" style={{ backgroundColor: '#00B2A9', height: '48px', padding: '0 24px' }}>
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <button className="search-button">
+                  <svg className="button-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                   Find now
                 </button>
               </div>
+              {/* Search form inputs only */}
             </div>
+            
+            {/* Decorative Wave - Full width */}
+            <div className="gradient-strip"></div>
           </div>
-          
-          {/* Decorative Wave */}
-          <div className="gradient-strip"></div>
         </section>
 
         {/* Lifestyle Pillars Section */}
-        <section className="py-12 px-4">
-          <div className="container mx-auto">
-            <div className="section-title">
-              <h2 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-1">HOW IT WORKS</h2>
-              <div className="flex items-center">
-                <h3 className="text-2xl font-semibold highlight-orange">Lifestyle as medicine:</h3>
-                <span className="ml-2 text-2xl text-gray-700 font-normal">The six pillars</span>
+        <section className="pillars-section">
+          <div className="pillars-container">
+            <div className="section-header">
+              <h2>HOW IT WORKS</h2>
+              <div className="section-title">
+                <h3 className="highlight-orange">Lifestyle as medicine:</h3>
+                <span>The six pillars</span>
               </div>
             </div>
             
             {/* Pillar Tabs */}
-            <div className="flex overflow-x-auto space-x-4 mb-8 pb-2">
+            <div className="pillar-tabs">
               {pillars.map(pillar => (
                 <button
                   key={pillar.id}
@@ -295,24 +298,24 @@ function App() {
             </div>
             
             {/* Pillar Content */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pillar-cards-container">
+            <div className="pillar-cards-container">
               {pillars.filter(pillar => pillar.id === activeTab).map(pillar => (
                 <div key={pillar.id} className="pillar-card">
-                  <div className="relative">
+                  <div className="card-image-container">
                     <img 
                       src={pillar.image} 
                       alt={pillar.title} 
                       className="pillar-card-image"
                     />
                     <div className="vitals-chip">
-                      <svg className="w-5 h-5 text-teal-500 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <svg className="chip-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
                       </svg>
-                      <span className="font-medium">{pillar.metric}</span>
-                      <span className="text-xs text-gray-500 ml-1">{pillar.unit}</span>
+                      <span className="metric-value">{pillar.metric}</span>
+                      <span className="metric-unit">{pillar.unit}</span>
                     </div>
                   </div>
-                  <div className="p-4">
+                  <div className="card-content">
                     <h4 className="card-title">{pillar.title}</h4>
                     <p className="card-description">{pillar.description}</p>
                   </div>
