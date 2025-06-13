@@ -1,4 +1,5 @@
-![Website Preview](./public/images/preview.png)
+![Website Preview](https://thatvik.github.io/front-end-task/images/preview.png)
+
 
 🚀 [Live Demo](https://thatvik.github.io/front-end-task/)
 
